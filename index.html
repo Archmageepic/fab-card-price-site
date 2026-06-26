@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FAB 單卡查價</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Flesh and Blood Price Finder</p>
+        <h1>FAB 單卡查價</h1>
+      </div>
+      <div class="sync-status" aria-label="資料狀態">
+        <span>資料範例版</span>
+        <strong id="lastUpdated">載入中</strong>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="search-panel" aria-labelledby="searchTitle">
+        <div class="section-heading">
+          <div>
+            <h2 id="searchTitle">查詢單卡</h2>
+            <p>輸入英文卡名、日文/中文備註或卡片編號，例如 WTR001。</p>
+          </div>
+          <button class="icon-button" id="clearSearch" title="清除搜尋" aria-label="清除搜尋">×</button>
+        </div>
+
+        <label class="search-box">
+          <span>卡片名稱或編號</span>
+          <input id="searchInput" type="search" placeholder="Command and Conquer / WTR..." autocomplete="off">
+        </label>
+
+        <div class="source-row" aria-label="價格來源">
+          <a href="https://www.tcgplayer.com/" target="_blank" rel="noreferrer">TCGplayer</a>
+          <a href="https://www.tokyofab-buy.com/" target="_blank" rel="noreferrer">TOKYO FAB 買取</a>
+          <a href="https://www.tokyofab.com/" target="_blank" rel="noreferrer">TOKYO FAB 賣價</a>
+          <a href="https://www.fable-fab.com/view/page/buylist" target="_blank" rel="noreferrer">Fable 買取</a>
+          <a href="https://www.fable-fab.com/" target="_blank" rel="noreferrer">Fable 賣價</a>
+          <a href="https://cardvault.fabtcg.com/" target="_blank" rel="noreferrer">Card Vault</a>
+        </div>
+
+        <div class="result-meta">
+          <span id="resultCount">0 筆結果</span>
+          <span id="dataDisclaimer">價格會以資料匯入時的幣別顯示。</span>
+        </div>
+
+        <div class="table-shell">
+          <table>
+            <thead>
+              <tr>
+                <th>卡片</th>
+                <th>編號</th>
+                <th>TCG Mid</th>
+                <th>TOKYO 賣價</th>
+                <th>TOKYO 買取</th>
+                <th>Fable 賣價</th>
+                <th>Fable 買取</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="watchlist" aria-labelledby="listTitle">
+        <div class="section-heading">
+          <div>
+            <h2 id="listTitle">暫存清單</h2>
+            <p>輸入張數後會即時計算買取總價。</p>
+          </div>
+          <button id="clearList" class="text-button">清空</button>
+        </div>
+
+        <div id="listItems" class="list-items"></div>
+
+        <div class="totals">
+          <div>
+            <span>TOKYO FAB 買取總價</span>
+            <strong id="tokyoTotal">¥0</strong>
+          </div>
+          <div>
+            <span>Fable 買取總價</span>
+            <strong id="fableTotal">¥0</strong>
+          </div>
+          <div class="best-total">
+            <span>最佳買取總價</span>
+            <strong id="bestTotal">¥0</strong>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <template id="emptyTemplate">
+      <tr>
+        <td colspan="8" class="empty-state">找不到符合的卡片。可以換成卡號、英文名或部分關鍵字再試一次。</td>
+      </tr>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
