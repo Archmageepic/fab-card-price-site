@@ -1,16 +1,17 @@
 {
-  "lastUpdated": "2026-06-27 04:50:48 CST",
+  "lastUpdated": "2026-06-27 05:45:00 CST",
   "updateMode": "daily",
-  "disclaimer": "價格每日自動更新一次；實際成交與買取價格以各店家網站公告為準。",
+  "disclaimer": "卡片資料來自 Card Vault；價格每日自動更新一次。實際成交與買取價格以各店家網站公告為準。",
   "updateLog": {
-    "updatedAt": "2026-06-27 04:50:48 CST",
-    "sources": [],
+    "updatedAt": "2026-06-27 05:45:00 CST",
+    "sources": [
+      {
+        "label": "Card Vault card database",
+        "updatedFrom": "https://api.cardvault.fabtcg.com/carddb/api/v1/product-cards/the-hunted/"
+      }
+    ],
     "warnings": [
-      "TCGPLAYER_PRICE_FEED_URL is not configured; kept existing TCGplayer Mid Price values.",
-      "TOKYO_FAB_SELL_FEED_URL is not configured; kept existing TOKYO FAB sell price values.",
-      "TOKYO_FAB_BUY_FEED_URL is not configured; kept existing TOKYO FAB buy price values.",
-      "FABLE_SELL_FEED_URL is not configured; kept existing Fable sell price values.",
-      "FABLE_BUY_FEED_URL is not configured; kept existing Fable buy price values."
+      "HNT260 was added from Card Vault. Full Card Vault import script is available and will be used by the daily workflow after this update. Price feeds are not configured yet, so missing prices are shown as unavailable."
     ]
   },
   "cards": [
@@ -42,6 +43,21 @@
         "tokyoBuy": 7200,
         "fableSell": 11800,
         "fableBuy": 7600
+      }
+    },
+    {
+      "id": "hnt260",
+      "name": "Command and Conquer",
+      "cardNumber": "HNT260",
+      "setName": "The Hunted",
+      "pitch": "Pitch 1 - Generic Action - Attack",
+      "notes": "Generic Action - Attack",
+      "prices": {
+        "tcgMid": null,
+        "tokyoSell": null,
+        "tokyoBuy": null,
+        "fableSell": null,
+        "fableBuy": null
       }
     },
     {
