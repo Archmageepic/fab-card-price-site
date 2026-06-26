@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "import:cardvault": "node scripts/import-cardvault.mjs",
     "update:prices": "node scripts/update-prices.mjs"
   },
   "engines": {
