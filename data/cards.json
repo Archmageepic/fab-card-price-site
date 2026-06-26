@@ -1,0 +1,108 @@
+{
+  "lastUpdated": "2026-06-27 04:50:48 CST",
+  "updateMode": "daily",
+  "disclaimer": "價格每日自動更新一次；實際成交與買取價格以各店家網站公告為準。",
+  "updateLog": {
+    "updatedAt": "2026-06-27 04:50:48 CST",
+    "sources": [],
+    "warnings": [
+      "TCGPLAYER_PRICE_FEED_URL is not configured; kept existing TCGplayer Mid Price values.",
+      "TOKYO_FAB_SELL_FEED_URL is not configured; kept existing TOKYO FAB sell price values.",
+      "TOKYO_FAB_BUY_FEED_URL is not configured; kept existing TOKYO FAB buy price values.",
+      "FABLE_SELL_FEED_URL is not configured; kept existing Fable sell price values.",
+      "FABLE_BUY_FEED_URL is not configured; kept existing Fable buy price values."
+    ]
+  },
+  "cards": [
+    {
+      "id": "wtr-001-alpha",
+      "name": "Dorinthea Ironsong",
+      "cardNumber": "WTR001",
+      "setName": "Welcome to Rathe",
+      "pitch": "Hero",
+      "notes": "Warrior hero",
+      "prices": {
+        "tcgMid": 2.11,
+        "tokyoSell": 380,
+        "tokyoBuy": 120,
+        "fableSell": 350,
+        "fableBuy": null
+      }
+    },
+    {
+      "id": "arc-159-unlimited",
+      "name": "Command and Conquer",
+      "cardNumber": "ARC159",
+      "setName": "Arcane Rising",
+      "pitch": "Generic Action",
+      "notes": "CNC generic majestic",
+      "prices": {
+        "tcgMid": 82.5,
+        "tokyoSell": 12800,
+        "tokyoBuy": 7200,
+        "fableSell": 11800,
+        "fableBuy": 7600
+      }
+    },
+    {
+      "id": "mon-000-cf",
+      "name": "The Library of Solana",
+      "cardNumber": "MON000",
+      "setName": "Monarch",
+      "pitch": "Landmark",
+      "notes": "Fabled cold foil",
+      "prices": {
+        "tcgMid": 112.34,
+        "tokyoSell": 19800,
+        "tokyoBuy": null,
+        "fableSell": 22000,
+        "fableBuy": 12000
+      }
+    },
+    {
+      "id": "mst-236-rf",
+      "name": "Bonds of Ancestry",
+      "cardNumber": "MST236",
+      "setName": "Part the Mistveil",
+      "pitch": "Ninja Action",
+      "notes": "Rainbow foil",
+      "prices": {
+        "tcgMid": 6.2,
+        "tokyoSell": 980,
+        "tokyoBuy": 350,
+        "fableSell": 880,
+        "fableBuy": 300
+      }
+    },
+    {
+      "id": "hvy-051-normal",
+      "name": "Balance of Justice",
+      "cardNumber": "HVY051",
+      "setName": "Heavy Hitters",
+      "pitch": "Guardian Equipment",
+      "notes": "Legendary equipment",
+      "prices": {
+        "tcgMid": 43.15,
+        "tokyoSell": 6800,
+        "tokyoBuy": 3600,
+        "fableSell": null,
+        "fableBuy": null
+      }
+    },
+    {
+      "id": "sea-042-normal",
+      "name": "High Seas Sample Card",
+      "cardNumber": "SEA042",
+      "setName": "High Seas",
+      "pitch": "Action",
+      "notes": "資料結構示範",
+      "prices": {
+        "tcgMid": 1.2,
+        "tokyoSell": 180,
+        "tokyoBuy": 30,
+        "fableSell": 200,
+        "fableBuy": 40
+      }
+    }
+  ]
+}
