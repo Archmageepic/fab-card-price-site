@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Import Card Vault cards
+        run: npm run import:cardvault
+
       - name: Update price data
         run: npm run update:prices
         env:
