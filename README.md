@@ -31,7 +31,13 @@
 
 第一階段採用 GitHub Actions 每天台北時間 04:17 更新一次 `data/cards.json`。Netlify 需要用 GitHub repository 連動部署，資料更新 commit 後才會自動重新發布。
 
-更新程式：
+匯入 Card Vault 英文卡表：
+
+```bash
+npm run import:cardvault
+```
+
+更新價格資料：
 
 ```bash
 npm run update:prices
@@ -49,7 +55,7 @@ GitHub Secrets 可設定以下價格 feed/API：
 
 ## 資料結構
 
-目前範例資料放在 `data/cards.json`。正式版可以讓後端排程把以下來源整理成相同格式：
+目前卡牌資料由 Card Vault 英文卡表匯入。正式價格可以讓後端排程把以下來源整理成相同格式：
 
 - Card Vault：卡片名稱、卡號、系列等基礎資料
 - TCGplayer：TCGplayer Mid Price
@@ -58,4 +64,4 @@ GitHub Secrets 可設定以下價格 feed/API：
 
 ## 正式發佈建議
 
-第一階段可用靜態網站加上每日更新的 `cards.json` 發佈到 Netlify、Vercel 或 GitHub Pages。第二階段再補後端排程、管理頁、價格更新紀錄與錯誤監控。
+第一階段可用靜態網站加上每日更新的 `cards.json` 發佈到 Netlify。第二階段再補價格來源解析、管理頁、價格更新紀錄與錯誤監控。
