@@ -1,0 +1,39 @@
+name: Update card prices
+
+on:
+  schedule:
+    # Runs at 04:17 Asia/Taipei.
+    - cron: "17 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-prices:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Update price data
+        run: npm run update:prices
+        env:
+          TCGPLAYER_PRICE_FEED_URL: ${{ secrets.TCGPLAYER_PRICE_FEED_URL }}
+          TOKYO_FAB_SELL_FEED_URL: ${{ secrets.TOKYO_FAB_SELL_FEED_URL }}
+          TOKYO_FAB_BUY_FEED_URL: ${{ secrets.TOKYO_FAB_BUY_FEED_URL }}
+          FABLE_SELL_FEED_URL: ${{ secrets.FABLE_SELL_FEED_URL }}
+          FABLE_BUY_FEED_URL: ${{ secrets.FABLE_BUY_FEED_URL }}
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/cards.json
+          git diff --cached --quiet || git commit -m "Update daily FAB price data"
+          git push
