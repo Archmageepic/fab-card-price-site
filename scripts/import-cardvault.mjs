@@ -79,12 +79,12 @@ async function fetchJson(url) {
 }
 
 function toSiteCard(card, productName) {
-  const prices = existingPrices.get(card.print_id) ?? {
-    tcgMid: null,
-    tokyoSell: null,
-    tokyoBuy: null,
-    fableSell: null,
-    fableBuy: null,
+  const existing = existingPrices.get(card.print_id) ?? {};
+  const prices = {
+    tokyoSell: existing.tokyoSell ?? null,
+    tokyoBuy: existing.tokyoBuy ?? null,
+    fableSell: existing.fableSell ?? null,
+    fableBuy: existing.fableBuy ?? null,
   };
 
   return {
