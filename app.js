@@ -2,7 +2,6 @@ const state = {
   cards: [],
   query: "",
   list: loadList(),
-  livePrices: new Map(),
 };
 
 const MAX_VISIBLE_RESULTS = 100;
@@ -28,8 +27,9 @@ async function init() {
   const response = await fetch("data/cards.json");
   const payload = await response.json();
   state.cards = payload.cards;
-  els.lastUpdated.textContent = `${payload.updateMode === "daily" ? "每日更新" : "更新時間"} ${payload.lastUpdated}`;
-  els.dataDisclaimer.textContent = payload.disclaimer || "價格會以資料匯入時的幣別顯示。";
+  const updatedAt = payload.updateLog?.updatedAt || payload.lastUpdated;
+  els.lastUpdated.textContent = `價格快照 ${updatedAt}`;
+  els.dataDisclaimer.textContent = payload.disclaimer || "價格每日 04:00 自動更新一次；實際成交與買取價格以各店家網站公告為準。";
   renderResults();
   renderList();
 
@@ -88,8 +88,7 @@ function renderResults() {
   visibleResults.forEach((card) => {
     const row = document.createElement("tr");
     const inList = state.list.some((item) => item.id === card.id);
-    const livePrices = state.livePrices.get(card.id);
-    const prices = livePrices ? { ...card.prices, ...livePrices } : card.prices;
+    const prices = card.prices;
 
     row.innerHTML = `
       <td>
@@ -109,35 +108,9 @@ function renderResults() {
   });
 
   els.resultsBody.append(fragment);
-  loadLivePrices(visibleResults.slice(0, 10));
   els.resultsBody.querySelectorAll(".add-button:not(:disabled)").forEach((button) => {
     button.addEventListener("click", () => addToList(button.dataset.id));
   });
-}
-
-async function loadLivePrices(cards) {
-  const missing = cards.filter((card) => !state.livePrices.has(card.id));
-  if (missing.length === 0) return;
-
-  await Promise.allSettled(missing.map(async (card) => {
-    const params = new URLSearchParams({
-      cardNumber: card.cardNumber,
-      name: card.name,
-    });
-    const response = await fetch(`/api/prices?${params.toString()}`);
-    if (!response.ok) return;
-    const prices = await response.json();
-    state.livePrices.set(card.id, {
-      tokyoSell: prices.tokyoSell,
-      tokyoBuy: prices.tokyoBuy,
-      fableSell: prices.fableSell,
-      fableBuy: prices.fableBuy,
-    });
-  }));
-
-  if (normalize(els.searchInput.value) === normalize(state.query)) {
-    renderResults();
-  }
 }
 
 function renderList() {
