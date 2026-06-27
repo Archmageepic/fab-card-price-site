@@ -4,12 +4,6 @@ const DATA_FILE = new URL("../data/cards.json", import.meta.url);
 
 const sourceFeeds = [
   {
-    key: "tcgMid",
-    env: "TCGPLAYER_PRICE_FEED_URL",
-    label: "TCGplayer Mid Price",
-    currency: "USD",
-  },
-  {
     key: "tokyoSell",
     env: "TOKYO_FAB_SELL_FEED_URL",
     label: "TOKYO FAB sell price",
@@ -38,7 +32,12 @@ const sourceFeeds = [
 const payload = JSON.parse(await readFile(DATA_FILE, "utf8"));
 const cards = payload.cards.map((card) => ({
   ...card,
-  prices: { ...card.prices },
+  prices: {
+    tokyoSell: card.prices?.tokyoSell ?? null,
+    tokyoBuy: card.prices?.tokyoBuy ?? null,
+    fableSell: card.prices?.fableSell ?? null,
+    fableBuy: card.prices?.fableBuy ?? null,
+  },
 }));
 const env = globalThis.process?.env ?? {};
 
