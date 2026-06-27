@@ -2,6 +2,7 @@ const state = {
   cards: [],
   query: "",
   list: loadList(),
+  livePrices: new Map(),
 };
 
 const MAX_VISIBLE_RESULTS = 100;
@@ -87,6 +88,8 @@ function renderResults() {
   visibleResults.forEach((card) => {
     const row = document.createElement("tr");
     const inList = state.list.some((item) => item.id === card.id);
+    const livePrices = state.livePrices.get(card.id);
+    const prices = livePrices ? { ...card.prices, ...livePrices } : card.prices;
 
     row.innerHTML = `
       <td>
@@ -96,20 +99,47 @@ function renderResults() {
         </div>
       </td>
       <td>${escapeHtml(card.cardNumber)}</td>
-      <td>${formatMoney(card.prices.tcgMid, "USD")}</td>
-      <td>${formatMoney(card.prices.tokyoSell, "JPY")}</td>
-      <td>${formatBuyPrice(card.prices.tokyoBuy)}</td>
-      <td>${formatMoney(card.prices.fableSell, "JPY")}</td>
-      <td>${formatBuyPrice(card.prices.fableBuy)}</td>
+      <td>${formatMoney(prices.tcgMid, "USD")}</td>
+      <td>${formatMoney(prices.tokyoSell, "JPY")}</td>
+      <td>${formatBuyPrice(prices.tokyoBuy)}</td>
+      <td>${formatMoney(prices.fableSell, "JPY")}</td>
+      <td>${formatBuyPrice(prices.fableBuy)}</td>
       <td><button class="add-button" data-id="${card.id}" ${inList ? "disabled" : ""}>${inList ? "已加入" : "加入"}</button></td>
     `;
     fragment.append(row);
   });
 
   els.resultsBody.append(fragment);
+  loadLivePrices(visibleResults.slice(0, 10));
   els.resultsBody.querySelectorAll(".add-button:not(:disabled)").forEach((button) => {
     button.addEventListener("click", () => addToList(button.dataset.id));
   });
+}
+
+async function loadLivePrices(cards) {
+  const missing = cards.filter((card) => !state.livePrices.has(card.id));
+  if (missing.length === 0) return;
+
+  await Promise.allSettled(missing.map(async (card) => {
+    const params = new URLSearchParams({
+      cardNumber: card.cardNumber,
+      name: card.name,
+    });
+    const response = await fetch(`/api/prices?${params.toString()}`);
+    if (!response.ok) return;
+    const prices = await response.json();
+    state.livePrices.set(card.id, {
+      tcgMid: prices.tcgMid,
+      tokyoSell: prices.tokyoSell,
+      tokyoBuy: prices.tokyoBuy,
+      fableSell: prices.fableSell,
+      fableBuy: prices.fableBuy,
+    });
+  }));
+
+  if (normalize(els.searchInput.value) === normalize(state.query)) {
+    renderResults();
+  }
 }
 
 function renderList() {
