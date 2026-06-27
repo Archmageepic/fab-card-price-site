@@ -16,6 +16,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: update-card-prices
+  cancel-in-progress: true
+
 jobs:
   update-prices:
     runs-on: ubuntu-latest
@@ -34,7 +38,6 @@ jobs:
       - name: Update price data
         run: npm run update:prices
         env:
-          TCGPLAYER_PRICE_FEED_URL: ${{ secrets.TCGPLAYER_PRICE_FEED_URL }}
           TOKYO_FAB_SELL_FEED_URL: ${{ secrets.TOKYO_FAB_SELL_FEED_URL }}
           TOKYO_FAB_BUY_FEED_URL: ${{ secrets.TOKYO_FAB_BUY_FEED_URL }}
           FABLE_SELL_FEED_URL: ${{ secrets.FABLE_SELL_FEED_URL }}
@@ -45,5 +48,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/cards.json
-          git diff --cached --quiet || git commit -m "Update daily FAB price data"
-          git push
+          if ! git diff --cached --quiet; then
+            git commit -m "Update daily FAB price data"
+            git pull --rebase origin main
+            git push
+          fi
