@@ -1,6 +1,5 @@
 type PriceResult = {
   cardNumber: string;
-  tcgMid: number | null;
   tokyoSell: number | null;
   tokyoBuy: number | null;
   fableSell: number | null;
@@ -22,13 +21,12 @@ export default async (req: Request) => {
 
   const result: PriceResult = {
     cardNumber,
-    tcgMid: null,
     tokyoSell: null,
     tokyoBuy: null,
     fableSell: null,
     fableBuy: null,
     updatedAt: taipeiTimestamp(),
-    warnings: ["TCGplayer Mid Price requires an authorized API/feed and is not connected yet."],
+    warnings: [],
   };
 
   const [tokyoSell, tokyoBuy, fableSell, fableBuy] = await Promise.allSettled([
