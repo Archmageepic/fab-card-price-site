@@ -17,7 +17,6 @@
   "pitch": "Generic Action",
   "notes": "CNC generic majestic",
   "prices": {
-    "tcgMid": 82.5,
     "tokyoSell": 12800,
     "tokyoBuy": 7200,
     "fableSell": 11800,
@@ -31,9 +30,8 @@
 ## 資料同步策略
 
 1. Card Vault 作為卡片基礎資料來源。
-2. TCGplayer Mid Price 建議優先使用官方或授權價格資料；若沒有 API 權限，需確認服務條款後再評估替代資料源。
-3. TOKYO FAB 與 Fable 可由後端排程抓取公開商品頁或買取表，整理成標準 JSON。
-4. 每次同步保留 `lastUpdated` 與來源 URL，之後可以在 UI 顯示資料新鮮度。
+2. TOKYO FAB 與 Fable 可由後端排程抓取公開商品頁或買取表，整理成標準 JSON。
+3. 每次同步保留 `lastUpdated` 與來源 URL，之後可以在 UI 顯示資料新鮮度。
 
 ## 每日更新流程
 
@@ -49,7 +47,6 @@
 
 可設定的 GitHub Secrets：
 
-- `TCGPLAYER_PRICE_FEED_URL`
 - `TOKYO_FAB_SELL_FEED_URL`
 - `TOKYO_FAB_BUY_FEED_URL`
 - `FABLE_SELL_FEED_URL`
@@ -79,6 +76,6 @@
 ## 需要決定
 
 - 網站正式名稱與網域。
-- 價格幣別是否全部換算成新台幣，或保留 USD/JPY 原幣別。
+- 價格幣別是否全部換算成新台幣，或保留 JPY 原幣別。
 - 買取總價是採「指定店家」還是「每張卡最佳買取價」。目前 MVP 同時顯示兩家與最佳總價。
 - 是否需要帳號系統，讓暫存清單跨裝置保存。
