@@ -5,7 +5,7 @@
 ## 目前功能
 
 - 透過卡名、卡號、系列名稱或備註搜尋卡片
-- 顯示 TCGplayer Mid Price、TOKYO FAB 賣價、TOKYO FAB 買取價、Fable 賣價、Fable 買取價
+- 顯示 TOKYO FAB 賣價、TOKYO FAB 買取價、Fable 賣價、Fable 買取價
 - 沒有買取價時顯示「暫無買取價格」
 - 將卡片加入暫存清單
 - 為每張卡輸入數量
@@ -23,7 +23,7 @@
 
 - Build command：留空
 - Publish directory：`.`
-- 價格幣別：TCGplayer 保留 USD，TOKYO FAB 與 Fable 保留 JPY
+- 價格幣別：TOKYO FAB 與 Fable 保留 JPY
 
 若用 Netlify 網頁版部署，可以直接把整個資料夾拖曳到 Netlify Deploys 頁面。若用 Git 連動，選擇此專案後保持上方設定即可。
 
@@ -45,7 +45,6 @@ npm run update:prices
 
 GitHub Secrets 可設定以下價格 feed/API：
 
-- `TCGPLAYER_PRICE_FEED_URL`
 - `TOKYO_FAB_SELL_FEED_URL`
 - `TOKYO_FAB_BUY_FEED_URL`
 - `FABLE_SELL_FEED_URL`
@@ -58,7 +57,6 @@ GitHub Secrets 可設定以下價格 feed/API：
 目前卡牌資料由 Card Vault 英文卡表匯入。正式價格可以讓後端排程把以下來源整理成相同格式：
 
 - Card Vault：卡片名稱、卡號、系列等基礎資料
-- TCGplayer：TCGplayer Mid Price
 - TOKYO FAB：賣價與買取價
 - Fable：賣價與買取價
 
