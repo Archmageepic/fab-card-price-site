@@ -4,6 +4,8 @@ const state = {
   list: loadList(),
 };
 
+const MAX_VISIBLE_RESULTS = 100;
+
 const els = {
   searchInput: document.querySelector("#searchInput"),
   clearSearch: document.querySelector("#clearSearch"),
@@ -52,8 +54,16 @@ async function init() {
 
 function renderResults() {
   const normalizedQuery = normalize(state.query);
+  if (!normalizedQuery) {
+    els.resultCount.textContent = `${state.cards.length} 張卡已載入`;
+    els.resultsBody.replaceChildren();
+    const row = document.createElement("tr");
+    row.innerHTML = `<td colspan="8" class="empty-state">輸入卡片名稱或卡號開始查詢。完整卡庫已載入，搜尋結果最多先顯示 ${MAX_VISIBLE_RESULTS} 筆。</td>`;
+    els.resultsBody.append(row);
+    return;
+  }
+
   const results = state.cards.filter((card) => {
-    if (!normalizedQuery) return true;
     return [
       card.name,
       card.cardNumber,
@@ -61,8 +71,11 @@ function renderResults() {
       card.notes,
     ].some((value) => normalize(value).includes(normalizedQuery));
   });
+  const visibleResults = results.slice(0, MAX_VISIBLE_RESULTS);
 
-  els.resultCount.textContent = `${results.length} 筆結果`;
+  els.resultCount.textContent = results.length > MAX_VISIBLE_RESULTS
+    ? `${results.length} 筆結果，顯示前 ${MAX_VISIBLE_RESULTS} 筆`
+    : `${results.length} 筆結果`;
   els.resultsBody.replaceChildren();
 
   if (results.length === 0) {
@@ -71,7 +84,7 @@ function renderResults() {
   }
 
   const fragment = document.createDocumentFragment();
-  results.forEach((card) => {
+  visibleResults.forEach((card) => {
     const row = document.createElement("tr");
     const inList = state.list.some((item) => item.id === card.id);
 
