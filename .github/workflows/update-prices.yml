@@ -1,6 +1,13 @@
 name: Update card prices
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-prices.yml"
+      - "scripts/**"
+      - "package.json"
   schedule:
     # Runs at 04:17 Asia/Taipei.
     - cron: "17 20 * * *"
