@@ -9,8 +9,8 @@ on:
       - "scripts/**"
       - "package.json"
   schedule:
-    # Runs at 04:17 Asia/Taipei.
-    - cron: "17 20 * * *"
+    # Runs at 04:00 Asia/Taipei. GitHub cron is UTC.
+    - cron: "0 20 * * *"
   workflow_dispatch:
 
 permissions:
@@ -32,10 +32,7 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Import Card Vault cards
-        run: npm run import:cardvault
-
-      - name: Update price data
+      - name: Update price snapshot
         run: npm run update:prices
         env:
           TOKYO_FAB_SELL_FEED_URL: ${{ secrets.TOKYO_FAB_SELL_FEED_URL }}
@@ -49,7 +46,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/cards.json
           if ! git diff --cached --quiet; then
-            git commit -m "Update daily FAB price data"
+            git commit -m "Update daily FAB price snapshot"
             git pull --rebase origin main
             git push
           fi
