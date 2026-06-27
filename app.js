@@ -59,7 +59,7 @@ function renderResults() {
     els.resultCount.textContent = `${state.cards.length} 張卡已載入`;
     els.resultsBody.replaceChildren();
     const row = document.createElement("tr");
-    row.innerHTML = `<td colspan="8" class="empty-state">輸入卡片名稱或卡號開始查詢。完整卡庫已載入，搜尋結果最多先顯示 ${MAX_VISIBLE_RESULTS} 筆。</td>`;
+    row.innerHTML = `<td colspan="7" class="empty-state">輸入卡片名稱或卡號開始查詢。完整卡庫已載入，搜尋結果最多先顯示 ${MAX_VISIBLE_RESULTS} 筆。</td>`;
     els.resultsBody.append(row);
     return;
   }
@@ -99,7 +99,6 @@ function renderResults() {
         </div>
       </td>
       <td>${escapeHtml(card.cardNumber)}</td>
-      <td>${formatMoney(prices.tcgMid, "USD")}</td>
       <td>${formatMoney(prices.tokyoSell, "JPY")}</td>
       <td>${formatBuyPrice(prices.tokyoBuy)}</td>
       <td>${formatMoney(prices.fableSell, "JPY")}</td>
@@ -129,7 +128,6 @@ async function loadLivePrices(cards) {
     if (!response.ok) return;
     const prices = await response.json();
     state.livePrices.set(card.id, {
-      tcgMid: prices.tcgMid,
       tokyoSell: prices.tokyoSell,
       tokyoBuy: prices.tokyoBuy,
       fableSell: prices.fableSell,
