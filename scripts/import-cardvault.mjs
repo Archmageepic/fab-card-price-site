@@ -23,13 +23,14 @@ for (const product of products) {
 
 cards.sort((a, b) => a.cardNumber.localeCompare(b.cardNumber));
 
+const timestamp = taipeiTimestamp();
 const nextPayload = {
   ...currentPayload,
-  lastUpdated: taipeiTimestamp(),
+  lastUpdated: timestamp,
   updateMode: "daily",
   disclaimer: "卡片資料來自 Card Vault；價格每日自動更新一次。實際成交與買取價格以各店家網站公告為準。",
   updateLog: {
-    updatedAt: taipeiTimestamp(),
+    updatedAt: timestamp,
     sources: [
       {
         label: "Card Vault card database",
