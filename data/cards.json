@@ -1,9 +1,9 @@
 {
-  "lastUpdated": "2026-07-07 05:20:57 CST",
+  "lastUpdated": "2026-07-08 05:14:50 CST",
   "updateMode": "daily",
   "disclaimer": "價格每日自動更新一次；實際成交與買取價格以各店家網站公告為準。",
   "updateLog": {
-    "updatedAt": "2026-07-07 05:20:57 CST",
+    "updatedAt": "2026-07-08 05:14:50 CST",
     "sources": [],
     "warnings": [
       "TOKYO_FAB_SELL_FEED_URL is not configured; kept existing TOKYO FAB sell price values.",
